@@ -1,31 +1,29 @@
 <?php get_header(); ?>
 
 <main>
-    <h2>Artikel Terbaru</h2>
-    <hr style="border: 0; border-top: 1px solid #eee; margin-bottom: 20px;">
+    <h2 style="color: #111111; margin-top:0;">Artikel Terbaru</h2>
+    <hr style="border: 0; border-top: 2px solid #3498db; margin-bottom: 25px;">
 
     <?php if ( have_posts() ) : ?>
-        <div class="post-container">
-           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+        <div class="post-grid">
             <?php while ( have_posts() ) : the_post(); ?>
-                <article id="post-<?php the_ID(); ?>" <?php post_class(); ?> style="background: #fff; border: 1px solid #e1e1e1; padding: 20px; border-radius: 6px;">
-                    <h3><a href="<?php the_permalink(); ?>" style="color: #2c3e50; text-decoration: none;"><?php the_title(); ?></a></h3>
-                    <p><small style="color: #777;">Diposting pada <?php the_date(); ?> oleh <?php the_author(); ?></small></p>
+                <article id="post-<?php the_ID(); ?>" <?php post_class('post-card'); ?>>
+                    <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+                    <p><small style="color: #666;">Diposting pada <?php the_date(); ?> oleh <?php the_author(); ?></small></p>
                     
                     <?php if ( has_post_thumbnail() ) : ?>
-                        <div style="margin-bottom: 15px;">
-                            <?php the_post_thumbnail('medium', ['style' => 'max-width:100%; height:auto; border-radius:4px;']); ?>
+                        <div style="margin: 15px 0; text-align: center;">
+                            <?php the_post_thumbnail('medium', ['style' => 'max-width:100%; height:auto; border-radius:6px; display:inline-block;']); ?>
                         </div>
                     <?php endif; ?>
 
                     <div><?php the_excerpt(); ?></div>
-                    <a href="<?php the_permalink(); ?>" style="display:inline-block; margin-top:10px; color:#3498db; text-decoration:none;">Baca Selengkapnya &raquo;</a>
+                    <a href="<?php the_permalink(); ?>" class="btn-readmore">Baca Selengkapnya &raquo;</a>
                 </article>
             <?php endwhile; ?>
         </div>
 
-        <!-- Fitur Pagination -->
-        <div class="pagination" style="clear: both; margin-top: 40px;">
+        <div class="pagination">
             <?php
             global $wp_query;
             $big = 999999999;
@@ -43,6 +41,10 @@
     <?php else : ?>
         <p><?php _e( 'Belum ada post yang ditemukan.' ); ?></p>
     <?php endif; ?>
+
+    <div class="sidebar-box">
+        <?php get_sidebar(); ?>
+    </div>
 </main>
 
 <?php get_footer(); ?>
